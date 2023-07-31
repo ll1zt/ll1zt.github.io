@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Function-闭包-装饰器</title>
-    <url>/2023/07/30/Function-%E8%B0%83%E7%94%A8%E4%B8%8E%E5%B0%81%E8%A3%85/</url>
+    <url>/2023/07/31/Function-%E8%B0%83%E7%94%A8%E4%B8%8E%E5%B0%81%E8%A3%85/</url>
     <content><![CDATA[<p>​		如果把一切程序都视为是调用＋封装的结果，那么 Function 则可以是一切程序的最小单元。</p>
 <p>​		同样的，Function &#x3D; 调用 + 封装</p>
 <p>​		Function将一段代码封装，使得这一段代码作为一个整体–一个Function被调用。</p>
@@ -12,7 +12,7 @@
 washHands<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>例如上面这个例子，定义了一个名为washHands的Function，在可以被调用的范围内，只要调用washHands()，就会执行print(“要洗手”)。</p>
-<p><img data-src="/%5Cimages%5C1.png"></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/ll1zt/Picgodemo/img/1.png"></p>
 <p>​		同样的，一个Function同样也可封装多个Function作为一个整体，并且在被调用时选择被返回某个或多个被封装Function。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token keyword">def</span> <span class="token function">washHands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
