@@ -1,6 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Function-闭包-装饰器</title>
+    <url>/2023/07/30/Function-%E8%B0%83%E7%94%A8%E4%B8%8E%E5%B0%81%E8%A3%85/</url>
+    <content><![CDATA[<p>​		如果把一切程序都视为是调用＋封装的结果，那么 Function 则可以是一切程序的最小单元。</p>
+<p>​		同样的，Function &#x3D; 调用 + 封装</p>
+<p>​		Function将一段代码封装，使得这一段代码作为一个整体–一个Function被调用。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">washHands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  
+	<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"要洗手"</span><span class="token punctuation">)</span>  
+  
+washHands<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>例如上面这个例子，定义了一个名为washHands的Function，在可以被调用的范围内，只要调用washHands()，就会执行print(“要洗手”)。</p>
+<p>​		同样的，一个Function同样也可封装多个Function作为一个整体，并且在被调用时选择被返回某个或多个被封装Function。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">washHands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"要洗手"</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">wipeMouth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"擦嘴巴"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> washHands<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+check<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​		此外，在python中，Function作为第一类对象，可以被赋值给一个变量，或者作为一个参数被传入另一个Function。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">chiFan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"吃饭"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">check</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">washHands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"要洗手"</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">wipeMouth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"擦嘴巴"</span><span class="token punctuation">)</span>
+        
+    func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> washHands<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+check<span class="token punctuation">(</span>chiFan<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​		若在Function在嵌套的前提下，内层Function引用了外层Function的变量（包括参数），外层Function又把内层Function当作返回值进行返回，则将内层Function和引用的变量称之为“闭包”。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">chiFan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"吃饭"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">check</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">washHands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"要洗手"</span><span class="token punctuation">)</span>
+        func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">wipeMouth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"擦嘴巴"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> washHands<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+check<span class="token punctuation">(</span>chiFan<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​		而装饰器的巧妙，则在于：在Function名称及内容不做改变的前提下，给Function附加一些额外的代码。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">chiFan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"吃饭"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">check</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">washHands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"要洗手"</span><span class="token punctuation">)</span>
+        func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">wipeMouth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"擦嘴巴"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> washHands
+
+
+chiFan <span class="token operator">=</span> check<span class="token punctuation">(</span>chiFan<span class="token punctuation">)</span>
+chiFan<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​		这里，就是在没有改变chiFan()的前提下，使得“吃饭前要洗手”得以实现。</p>
+<p>需要值得注意的是retun washHands 和 return washHands()的差别：</p>
+<ul>
+<li><p>前者返回Fucntion <code>washHands</code> 本身，而不是调用 <code>washHands()</code> 后的结果。返回的Function可以赋值给一个变量以备后续使用，但要执行内部Function，必须显式地调用返回的Function。</p>
+</li>
+<li><p>后者会立即执行内部Function <code>washHands()</code>，并返回该Function调用的结果。内部函数会在外部Function执行过程中被调用。</p>
+</li>
+</ul>
+<p>当然还可以使用语法糖，让装饰器的使用更加优雅（需注意顺序）</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">check</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">washHands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"要洗手"</span><span class="token punctuation">)</span>
+        func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">wipeMouth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"擦嘴巴"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> washHands
+
+<span class="token decorator annotation punctuation">@check</span>
+<span class="token keyword">def</span> <span class="token function">chiFan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"吃饭"</span><span class="token punctuation">)</span>
+<span class="token comment">#chiFan = check(chiFan)</span>
+
+chiFan<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+<p><img data-src="Z:\Contents\blog\my-blog\source_posts\images\1.jpg" alt="1"></p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2023/07/10/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
