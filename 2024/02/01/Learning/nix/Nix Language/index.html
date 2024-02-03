@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#6D7975"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#6D7975">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Nix LanguageNoted: Values in the Nix language can be primitive data types, lists, attribute sets, and functions. Nix 语言中的值可以是基元数据类型、列表、属性集和函数。 Attribute sets and let expressions are used to assign nam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lllzt&#39;s blog">
+<meta property="og:url" content="http://example.com/2024/02/01/Learning/nix/Nix%20Language/index.html">
+<meta property="og:site_name" content="lllzt&#39;s blog">
+<meta property="og:description" content="Nix LanguageNoted: Values in the Nix language can be primitive data types, lists, attribute sets, and functions. Nix 语言中的值可以是基元数据类型、列表、属性集和函数。 Attribute sets and let expressions are used to assign nam">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-02-01T06:18:44.066Z">
+<meta property="article:modified_time" content="2024-01-29T07:14:58.000Z">
+<meta property="article:author" content="lllzt">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2024/02/01/Learning/nix/Nix%20Language/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/02/01/Learning/nix/Nix%20Language/","path":"2024/02/01/Learning/nix/Nix Language/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | lllzt's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">lllzt's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">welcome</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nix-Language"><span class="nav-number">1.</span> <span class="nav-text">Nix Language</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Types"><span class="nav-number">1.1.</span> <span class="nav-text">Data Types</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Attribute-Set"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Attribute Set</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Attribute-access"><span class="nav-number">1.1.0.1.1.</span> <span class="nav-text">Attribute access</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Language-Constructs"><span class="nav-number">1.2.</span> <span class="nav-text">Language Constructs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Recursive-attribute-set"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">Recursive attribute set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Let-expressions"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">Let-expressions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#with-%E2%80%A6-%E2%80%A6"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">with …; …</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inherit-%E2%80%A6"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">inherit …</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-interpolation"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">String interpolation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#File-system-paths"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">File system paths</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lookup-paths"><span class="nav-number">1.2.0.7.</span> <span class="nav-text">Lookup paths</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="lllzt"
+      src="https://avatars.githubusercontent.com/u/130381763?v=4">
+  <p class="site-author-name" itemprop="name">lllzt</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ll1zt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ll1zt" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/01/Learning/nix/Nix%20Language/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/130381763?v=4">
+      <meta itemprop="name" content="lllzt">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lllzt's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | lllzt's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-02-01 14:18:44" itemprop="dateCreated datePublished" datetime="2024-02-01T14:18:44+08:00">2024-02-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Nix-Language"><a href="#Nix-Language" class="headerlink" title="Nix Language"></a>Nix Language</h1><p>Noted:</p>
+<p>Values in the Nix language can be primitive data types, lists, attribute sets, and functions.</p>
+<p>Nix 语言中的值可以是基元数据类型、列表、属性集和函数。</p>
+<p>Attribute sets and let expressions are used to assign names to values. Assignments are denoted by a single equal sign (&#x3D;).</p>
+<p>属性集和 let 表达式用于为值指定名称。赋值由单个等号 （&#x3D;） 表示。</p>
+<p>Whenever you encounter an equal sign (&#x3D;) in Nix language code:</p>
+<p>每当您在 Nix 语言代码中遇到等号 （&#x3D;） 时：</p>
+<p>On its left is the assigned name.</p>
+<p>它的左边是分配的名称。</p>
+<p>On its right is the value, delimited by a semicolon (;).</p>
+<p>它的右边是值，用分号 （;) 分隔。</p>
+<h2 id="Data-Types"><a href="#Data-Types" class="headerlink" title="Data Types"></a>Data Types</h2><p>string</p>
+<p>list</p>
+<h4 id="Attribute-Set"><a href="#Attribute-Set" class="headerlink" title="Attribute Set"></a>Attribute Set</h4><p>An attribute set is a collection of name-value-pairs, where names must be unique.</p>
+<p>属性集是名称-值-对的集合，其中名称必须是唯一的。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">string</span> = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  <span class="attr">integer</span> = <span class="number">1</span>;</span><br><span class="line">  <span class="attr">float</span> = <span class="number">3.141</span>;</span><br><span class="line">  <span class="attr">bool</span> = <span class="literal">true</span>;</span><br><span class="line">  <span class="attr">null</span> = <span class="literal">null</span>;</span><br><span class="line">  <span class="attr">list</span> = [ <span class="number">1</span> <span class="string">&quot;two&quot;</span> <span class="literal">false</span> ];</span><br><span class="line">  <span class="attr">attribute-set</span> = &#123;</span><br><span class="line">    <span class="attr">a</span> = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    <span class="attr">b</span> = <span class="number">2</span>;</span><br><span class="line">    <span class="attr">c</span> = <span class="number">2.718</span>;</span><br><span class="line">    <span class="attr">d</span> = <span class="literal">false</span>;</span><br><span class="line">  &#125;; <span class="comment"># comments are supported</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="Attribute-access"><a href="#Attribute-access" class="headerlink" title="Attribute access"></a>Attribute access</h5><p>Attributes in a set are accessed with a dot (<code>.</code>) and the attribute name.</p>
+<p>集合中的属性使用点 （.） 和属性名称进行访问。</p>
+<p>Accessing nested attributes works the same way.</p>
+<p>访问嵌套属性的工作方式相同。</p>
+<p>The dot (<code>.</code>) notation can als</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span></span><br><span class="line">  <span class="attr">attrset</span> = &#123; <span class="attr">a</span> = &#123; <span class="attr">b</span> = &#123; <span class="attr">c</span> = <span class="number">1</span>; &#125;; &#125;; &#125;;</span><br><span class="line"><span class="keyword">in</span></span><br><span class="line">attrset.a.b.c</span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>o be used for assigning attributes.点 （.） 表示法也可用于分配属性。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; a.b.<span class="attr">c</span> = <span class="number">1</span>; &#125;</span><br><span class="line"></span><br><span class="line">&#123; <span class="attr">a</span> = &#123; <span class="attr">b</span> = &#123; <span class="attr">c</span> = <span class="number">1</span>; &#125;; &#125;; &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Language-Constructs"><a href="#Language-Constructs" class="headerlink" title="Language Constructs"></a>Language Constructs</h2><h4 id="Recursive-attribute-set"><a href="#Recursive-attribute-set" class="headerlink" title="Recursive attribute set"></a>Recursive attribute set</h4><p>rec { … }</p>
+<p>You will sometimes see attribute sets declared with rec prepended. This allows access to attributes from within the set.<br>您有时会看到以 rec 为前缀的声明属性集。这允许从集合中访问属性。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rec</span> &#123;</span><br><span class="line">  <span class="attr">one</span> = <span class="number">1</span>;</span><br><span class="line">  <span class="attr">two</span> = one + <span class="number">1</span>;</span><br><span class="line">  <span class="attr">three</span> = two + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123; <span class="attr">one</span> = <span class="number">1</span>; <span class="attr">three</span> = <span class="number">3</span>; <span class="attr">two</span> = <span class="number">2</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Elements in an attribute set can be declared in any order, and are ordered on evaluation.</p>
+<p>属性集中的元素可以按任意顺序声明，并在计算时进行排序。</p>
+<h4 id="Let-expressions"><a href="#Let-expressions" class="headerlink" title="Let-expressions"></a>Let-expressions</h4><p><code>let</code> expressions allow assigning names to values for repeated use.</p>
+<p>let 表达式允许为值指定名称以供重复使用。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span></span><br><span class="line">  <span class="attr">a</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">in</span></span><br><span class="line">a + a</span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Only expressions within the <code>let</code> expression itself can access the newly declared names. We say: the bindings have local scope.</p>
+<p>只有 let 表达式本身中的表达式才能访问新声明的名称。我们说：绑定具有局部范围。</p>
+<h4 id="with-…-…"><a href="#with-…-…" class="headerlink" title="with …; …"></a>with …; …</h4><p>The <code>with</code> expression allows access to attributes without repeatedly referencing their attribute set.with </p>
+<p>表达式允许访问属性，而无需重复引用其属性集。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span></span><br><span class="line">  <span class="attr">a</span> = &#123;</span><br><span class="line">    <span class="attr">x</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="attr">y</span> = <span class="number">2</span>;</span><br><span class="line">    <span class="attr">z</span> = <span class="number">3</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="keyword">in</span></span><br><span class="line"><span class="keyword">with</span> a; [ x y z ]</span><br><span class="line"><span class="comment"># [ a.x a.y a.z ]</span></span><br><span class="line"></span><br><span class="line">[ <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> ]</span><br></pre></td></tr></table></figure>
+
+<p>Attributes made available through <code>with</code> are only in scope of the expression following the semicolon (<code>;</code>).通过 with 提供的属性仅在分号 （;) 后面的表达式的作用域内。</p>
+<h4 id="inherit-…"><a href="#inherit-…" class="headerlink" title="inherit …"></a>inherit …</h4><p><code>inherit</code> is shorthand for assigning the value of a name from an existing scope to the same name in a nested scope. It is for convenience to avoid repeating the same name multiple times.inherit </p>
+<p>是将现有作用域中的名称值分配给嵌套作用域中的相同名称的简写。为了方便起见，避免多次重复相同的名称。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span></span><br><span class="line">  <span class="attr">x</span> = <span class="number">1</span>;</span><br><span class="line">  <span class="attr">y</span> = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">in</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">inherit</span> x y;</span><br><span class="line">  <span class="comment"># x = x; y = y;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123; <span class="attr">x</span> = <span class="number">1</span>; <span class="attr">y</span> = <span class="number">2</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="String-interpolation"><a href="#String-interpolation" class="headerlink" title="String interpolation"></a>String interpolation</h4><p>${ … }</p>
+<p>The value of a Nix expression can be inserted into a character string with the dollar-sign and braces (<code>$&#123; &#125;</code>).</p>
+<p>Nix 表达式的值可以插入到带有美元符号和大括号 （${ }） 的字符串中。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span></span><br><span class="line">  <span class="attr">name</span> = <span class="string">&quot;Nix&quot;</span>;</span><br><span class="line"><span class="keyword">in</span></span><br><span class="line"><span class="string">&quot;hello <span class="subst">$&#123;name&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;hello Nix&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h4 id="File-system-paths"><a href="#File-system-paths" class="headerlink" title="File system paths"></a>File system paths</h4><p>Absolute paths always start with a slash (<code>/</code>).</p>
+<p>绝对路径始终以斜杠 （&#x2F;） 开头。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/absolute/path</span><br><span class="line"></span><br><span class="line">/absolute/path</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Paths are relative when they contain at least one slash (<code>/</code>) but do not start with one. They evaluate to the path relative to the file containing the expression.</p>
+<p>当路径包含至少一个斜杠 （&#x2F;） 但不以斜杠 （&#x2F;） 开头时，路径是相对的。它们的计算结果为相对于包含表达式的文件的路径。</p>
+<p>The following examples assume the containing Nix file is in <code>/current/directory</code> (or <code>nix repl</code> is run in <code>/current/directory</code>).</p>
+<p>以下示例假定包含的 Nix 文件位于 &#x2F;current&#x2F;directory 中（或者 nix repl 在 &#x2F;current&#x2F;directory 中运行）。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./relative</span><br><span class="line">/current/directory/relative</span><br><span class="line"></span><br><span class="line">relative/path</span><br><span class="line">/current/directory/relative/path</span><br></pre></td></tr></table></figure>
+
+
+
+<p>One dot (<code>.</code>) denotes the current directory within the given path.</p>
+<p>一个点 （.） 表示给定路径中的当前目录。</p>
+<p>You will often see the following expression, which specifies a Nix file’s directory.</p>
+<p>您经常会看到以下表达式，它指定了 Nix 文件的目录。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./.</span><br><span class="line"></span><br><span class="line">/current/directory</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Two dots (<code>..</code>) denote the parent directory.</p>
+<p>两个点 （..） 表示父目录。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">../.</span><br><span class="line"></span><br><span class="line">/current</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Lookup-paths"><a href="#Lookup-paths" class="headerlink" title="Lookup paths"></a>Lookup paths</h4>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/03/Essay/2023%E5%B9%B4%EF%BC%8C%E4%B8%96%E7%95%8C%E4%BE%9D%E6%97%A7%E7%BE%8E%E5%A5%BD/" rel="prev" title="2023年，世界依旧美好">
+                  <i class="fa fa-angle-left"></i> 2023年，世界依旧美好
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/02/01/Learning/nix/My%20Nix%20Journey/" rel="next" title="">
+                   <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lllzt</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+
+  <a href="https://github.com/ll1zt" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
